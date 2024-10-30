@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Quran Verse Widget</title>
     <style>
-        /* Basic styling for the widdget */
+        /* Basic styling for the widget */
         #quranVerse {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -16,26 +16,51 @@
             max-width: 400px;
             margin: 20px auto;
         }
+        #refreshButton {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #refreshButton:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div id="quranVerse">Loading verse...</div>
+    <button id="refreshButton" onclick="fetchVerse()">Refresh</button>
 
     <script>
         async function fetchVerse() {
             try {
-                const response = await fetch("https://api.alquran.cloud/v1/ayah/random");
+                // Fetch random verse data with English translation
+                const response = await fetch("https://api.alquran.cloud/v1/ayah/random/editions/quran-simple,en.sahih");
                 const data = await response.json();
-                const verse = data.data.text;
-                const surah = data.data.surah.englishName;
-                const ayahNumber = data.data.numberInSurah;
+
+                // Arabic text and English translation
+                const arabicVerse = data.data[0].text;
+                const englishTranslation = data.data[1].text;
+                const surah = data.data[0].surah.englishName;
+                const ayahNumber = data.data[0].numberInSurah;
+
+                // Display the verse in Arabic with the English translation
                 document.getElementById("quranVerse").innerHTML = 
-                    `<p>"${verse}"</p><p><em>— Surah ${surah}, Ayah ${ayahNumber}</em></p>`;
+                    `<p><strong>Arabic:</strong> "${arabicVerse}"</p>
+                    <p><strong>English:</strong> "${englishTranslation}"</p>
+                    <p><em>— Surah ${surah}, Ayah ${ayahNumber}</em></p>`;
             } catch (error) {
                 document.getElementById("quranVerse").innerHTML = 
                     `<p>Sorry, an error occurred while fetching the verse.</p>`;
             }
         }
+
+        // Initial fetch to load the verse on page load
         fetchVerse();
     </script>
 </body>
