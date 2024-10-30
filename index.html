@@ -43,11 +43,44 @@
     #refreshButton:hover {
         background-color: green;
     }
+    .moon {
+      width: 50px;
+      margin: 0 auto;
+      display: block;
+      animation: customAni1 2s ease 0s infinite normal none;
+    }
+
+    @keyframes customAni1 {
+      0% {
+    	transform: translate(0);
+      }
+    
+      20% {
+    	transform: translate(-2px, 2px);
+      }
+    
+      40% {
+    	transform: translate(-2px, -2px);
+      }
+    
+      60% {
+    	transform: translate(2px, 2px);
+      }
+    
+      80% {
+    	transform: translate(2px, -2px);
+      }
+    
+      100% {
+    	transform: translate(0);
+      }
+    }
     </style>
 </head>
 <body>
     
     <div class="grid_container">
+        <img src="moon.png" class="moon">
         <div id="quranVerse" class="item-a">Loading verse...</div>
         <button id="refreshButton" onclick="fetchVerse()" class="item-b"><i class="fa-solid fa-rotate-right"></i></button>
     </div>
