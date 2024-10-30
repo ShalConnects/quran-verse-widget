@@ -5,42 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Quran Verse Widget</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Basic styling for the widget */
-        #quranVerse {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            max-width: 400px;
-            margin: 20px auto;
-        }
-        #refreshButton {
-            display: block;
-            padding: 8px 16px;
-            margin: 10px auto 0;
-            font-size: 14px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            background-color: grey;
-        }
-        #refreshButton:hover {
-            background-color: #0056b3;
-        }
+           .grid_container {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        max-width: 400px;
+        padding: 20px;
+        margin: 20px auto;
+    }
+    
+    #quranVerse {
+        font-family: "Lexend Deca", sans-serif;
+        text-align: center;
+    }
+    
+    #refreshButton {
+        font-family: "Lexend Deca", sans-serif;
+        display: block;
+        padding: 8px 16px;
+        margin: 10px auto 0;
+        font-size: 14px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        background-color: grey;
+    }
+    
+    #refreshButton:hover {
+        background-color: green;
+    }
     </style>
 </head>
 <body>
-    <div id="quranVerse">
-        <img src="favicon.ico">
-        Loading verse...
+    
+    <div class="grid_container">
+        <div id="quranVerse" class="item-a">Loading verse...</div>
+        <button id="refreshButton" onclick="fetchVerse()" class="item-b"><i class="fa-solid fa-rotate-right"></i></button>
     </div>
-    <button id="refreshButton" onclick="fetchVerse()">Refresh</button>
 
     <script>
         async function fetchVerse() {
