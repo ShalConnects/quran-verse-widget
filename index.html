@@ -94,7 +94,8 @@
             const lastFetchedTime = localStorage.getItem("lastFetchedTime");
             const storedAyah = localStorage.getItem("savedAyah");
         
-            // Check if 24 hours have passed, unless forceRefresh is true
+            // Fetch a new ayah if 24 hours have passed or if forceRefresh is true
+            // Also fetch a new ayah if there is no stored ayah on first load
             if (!forceRefresh && storedAyah && lastFetchedTime && Date.now() - lastFetchedTime < 86400000) {
                 document.getElementById("quranVerse").innerHTML = JSON.parse(storedAyah);
                 return;
@@ -129,6 +130,9 @@
                 document.getElementById("quranVerse").innerHTML = `<p>Sorry, an error occurred while fetching the verse.</p>`;
             }
         }
+        
+        // Automatically call fetchVerse() on page load to ensure an ayah is displayed
+        fetchVerse();
 
     </script>
 </body>
