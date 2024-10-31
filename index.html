@@ -10,83 +10,186 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Basic styling for the widget */
-           .grid_container {
-        background-color: #f5f5f5;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 400px;
-        padding: 20px;
-        margin: 20px auto;
-    }
-    
-    #quranVerse {
-        font-family: "Lexend Deca", sans-serif;
-        text-align: center;
-    }
-    
-    #refreshButton {
-        font-family: "Lexend Deca", sans-serif;
-        display: block;
-        padding: 8px 16px;
-        margin: 10px auto 0;
-        font-size: 14px;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        background-color: grey;
-    }
-    
-    #refreshButton:hover {
-        background-color: #cba50d;
-        color: #000;
-        transition: all 0.3s;
-    }
-    .moon {
-      width: 50px;
-      margin: 0 auto;
-      display: block;
-      animation: customAni1 2s ease 0s infinite normal none;
-    }
+::-webkit-scrollbar {
+    display: none
+}
 
-    @keyframes customAni1 {
-      0% {
-    	transform: translate(0);
-      }
-    
-      20% {
-    	transform: translate(-2px, 2px);
-      }
-    
-      40% {
-    	transform: translate(-2px, -2px);
-      }
-    
-      60% {
-    	transform: translate(2px, 2px);
-      }
-    
-      80% {
-    	transform: translate(2px, -2px);
-      }
-    
-      100% {
-    	transform: translate(0);
-      }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lexend Deca", sans-serif
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff
+}
+
+button {
+    cursor: pointer;
+    width: 100%;
+    background: transparent;
+    border: 0
+}
+
+button i {
+    font-size: 25px;
+    color: #fff
+}
+
+#quranVerse p {
+    margin: 10px 0;
+    text-align: center
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    max-width: 600px;
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    height: 300px;
+    min-height: 300px
+}
+
+.main-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    display: flex;
+    margin: auto;
+    height: 300px;
+    min-height: 300px;
+    overflow-y: scroll;
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column
+}
+
+.moon {
+    width: 50px;
+    margin: 0 auto;
+    display: block;
+    animation: customAni1 2s ease 0s infinite normal none
+}
+
+@keyframes customAni1 {
+    0% {
+        transform: translate(0)
     }
-    
+    20% {
+        transform: translate(-2px, 2px)
+    }
+    40% {
+        transform: translate(-2px, -2px)
+    }
+    60% {
+        transform: translate(2px, 2px)
+    }
+    80% {
+        transform: translate(2px, -2px)
+    }
+    100% {
+        transform: translate(0)
+    }
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    width: 80px;
+    border-radius: 8px
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.sidebar-item:last-child {}
+
+.item-c {
+    background-color: #FF6500;
+    border-bottom-right-radius: 8px
+}
+
+.item-b {
+    background-color: #243642
+}
+
+.item-a {
+    background-color: #72BF78;
+    border-top-right-radius: 8px
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #f5f5f5
+}
+
+.dark-mode.main-content {
+    background-color: #444;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px
+}
+
+.dark-mode.sidebar {
+    background-color: #555
+}
+
+.dark-mode.sidebar-item {}
+
+.dark-mode.sidebar-item:hover {
+    background-color: #666
+}
+
+@media(max-width:600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 5px
+    }
+    .sidebar {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        border-left: none;
+        border-top: 1px solid #ccc
+    }
+    .sidebar-item {
+        border-bottom: none;
+        border-right: 1px solid #ccc;
+        padding: 10px
+    }
+    .sidebar-item:last-child {
+        border-right: none
+    }
+}
     </style>
 </head>
 <body>
     
-    <div class="grid_container">
-        <img src="moon.png" class="moon">
-        <div id="quranVerse" class="item-a">Loading verse...</div>
-        <button id="refreshButton" onclick="fetchVerse(true)" class="item-b"><i class="fa-solid fa-rotate-right"></i></button>
+    <div class="grid-container">
+    <div class="main-content">
+        <!-- Main content area, put your verse or text here -->
+        <img id="toggleImage" src="icon_1.png" class="moon">
+        <br>
+        <div id="quranVerse">Loading verse...</div>
     </div>
+    <div class="sidebar">
+        <button id="refreshButton" onclick="fetchVerse(true)" class="sidebar-item item-a"><i class="fa-solid fa-rotate-right"></i></button>
+        <button id="toggleDarkMode" class="sidebar-item item-b"><i class="fa-solid fa-circle-half-stroke"></i></button>
+        <button class="sidebar-item item-c" onclick="changeImage()"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+    </div>
+</div>
 
     <script>
         
