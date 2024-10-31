@@ -89,31 +89,47 @@
     </div>
 
     <script>
-        async function fetchVerse() {
+        
+        async function fetchVerse(forceRefresh = false) {
+            const lastFetchedTime = localStorage.getItem("lastFetchedTime");
+            const storedAyah = localStorage.getItem("savedAyah");
+        
+            // Check if 24 hours have passed, unless forceRefresh is true
+            if (!forceRefresh && storedAyah && lastFetchedTime && Date.now() - lastFetchedTime < 86400000) {
+                document.getElementById("quranVerse").innerHTML = JSON.parse(storedAyah);
+                return;
+            }
+        
             try {
-                // Fetch random verse data with English translation
-                const response = await fetch("https://api.alquran.cloud/v1/ayah/random/editions/quran-simple,en.sahih");
+                // Fetch a new ayah
+                const response = await fetch(`https://api.alquran.cloud/v1/ayah/random/editions/quran-simple,en.sahih?nocache=${Math.random()}`);
                 const data = await response.json();
-
-                // Arabic text and English translation
-                const arabicVerse = data.data[0].text;
-                const englishTranslation = data.data[1].text;
-                const surah = data.data[0].surah.englishName;
-                const ayahNumber = data.data[0].numberInSurah;
-
-                // Display the verse in Arabic with the English translation
-                document.getElementById("quranVerse").innerHTML = 
-                    `<p><strong>Arabic:</strong> "${arabicVerse}"</p>
-                    <p><strong>English:</strong> "${englishTranslation}"</p>
-                    <p><em>— Surah ${surah}, Ayah ${ayahNumber}</em></p>`;
+        
+                if (data && data.data && data.data.length >= 2) {
+                    const arabicVerse = data.data[0].text;
+                    const englishTranslation = data.data[1].text;
+                    const surah = data.data[0].surah.englishName;
+                    const ayahNumber = data.data[0].numberInSurah;
+        
+                    const ayahContent = 
+                        `<p><strong>Arabic:</strong> "${arabicVerse}"</p>
+                        <p><strong>English:</strong> "${englishTranslation}"</p>
+                        <p><em>— Surah ${surah}, Ayah ${ayahNumber}</em></p>`;
+        
+                    // Display the new ayah
+                    document.getElementById("quranVerse").innerHTML = ayahContent;
+        
+                    // Save the new ayah and the current timestamp to localStorage
+                    localStorage.setItem("savedAyah", JSON.stringify(ayahContent));
+                    localStorage.setItem("lastFetchedTime", Date.now());
+                } else {
+                    document.getElementById("quranVerse").innerHTML = `<p>Sorry, no verse data available.</p>`;
+                }
             } catch (error) {
-                document.getElementById("quranVerse").innerHTML = 
-                    `<p>Sorry, an error occurred while fetching the verse.</p>`;
+                document.getElementById("quranVerse").innerHTML = `<p>Sorry, an error occurred while fetching the verse.</p>`;
             }
         }
 
-        // Initial fetch to load the verse on page load
-        fetchVerse();
     </script>
 </body>
 </html>
