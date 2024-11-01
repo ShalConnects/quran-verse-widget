@@ -130,42 +130,7 @@
 
     <script>
         
-// Array of image URLs
-const images = [
-
-    "icon-1.png",
-    "icon-2.png",
-    "icon-3.png",
-    "icon-4.png",
-    "icon-5.png",
-
-];
-
-// Variable to track the current image index
-let currentImageIndex = 0;
-
-function changeImage() {
-    const img = document.getElementById("toggleImage");
-    
-    // Update the image source to the next image in the array
-    img.src = images[currentImageIndex];
-    
-    // Increment the index, reset to 0 if it reaches the end of the array
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-}
-
-
-    const toggleDarkMode = document.getElementById("toggleDarkMode");
-        toggleDarkMode.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-        });
-
-        // Placeholder function for refresh button
-        function refreshVerse() {
-            document.getElementById("quranVerse").innerHTML = "<p>New verse loaded...</p>";
-        }
-
-    async function fetchVerse(forceRefresh = false) {
+async function fetchVerse(forceRefresh = false) {
     const lastFetchedTime = localStorage.getItem("lastFetchedTime");
     const storedAyah = localStorage.getItem("savedAyah");
 
@@ -208,6 +173,7 @@ function changeImage() {
 
 // Automatically call fetchVerse() on page load to ensure an ayah is displayed
 fetchVerse();
+
     </script>
 </body>
 </html>
