@@ -157,8 +157,8 @@ async function fetchVerse(forceRefresh = false) {
             const ayahNumber = data.data[0].numberInSurah;
 
             const ayahContent = 
-                `<p><strong>Arabic:</strong> "${arabicVerse}"</p>
-                <p><strong>English:</strong> "${englishTranslation}"</p>
+                `<p>"${arabicVerse}"</p>
+                <p>"${englishTranslation}"</p>
                 <p><em>— Surah ${surah}, Ayah ${ayahNumber}</em></p>`;
 
             // Display the new ayah
@@ -177,6 +177,7 @@ async function fetchVerse(forceRefresh = false) {
 
 // Automatically call fetchVerse() on page load to ensure an ayah is displayed
 fetchVerse();
+
 
     </script>
 </body>
