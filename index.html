@@ -175,21 +175,13 @@ body.dark-mode {
 }
     </style>
 </head>
-<body class="dark-mode">
-    
-    <div class="grid-container">
-    <div class="main-content">
-        <!-- Main content area, put your verse or text here -->
-        <img id="toggleImage" src="icon-1.png" class="moon">
-        <br>
-        <div id="quranVerse">Loading verse...</div>
-    </div>
-    <div class="sidebar">
-        <button id="refreshButton" onclick="fetchVerse(true)" class="sidebar-item item-a"><i class="fa-solid fa-rotate-right"></i></button>
-        <button id="toggleDarkMode" class="sidebar-item item-b"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        <button class="sidebar-item item-c" onclick="changeImage()"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
-    </div>
+<body>
+<div class="grid_container">
+<img src="https://i.ibb.co.com/3WMF2Vr/islam.png" class="moon">
+<div id="quranVerse" class="item-a">Loading verse...</div>
+<button id="refreshButton" onclick="fetchVerse(true)" class="item-b"><i class="fa-solid fa-rotate-right"></i></button>
 </div>
+
 
     <script>
         
