@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Quran Verse Widget</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Beautiful daily Quran verses with Arabic text and English translations. Features dark mode, mobile gestures, and social sharing.">
+    <meta name="theme-color" content="#cba50d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="QuranVerse">
+    <meta name="msapplication-TileColor" content="#cba50d">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icon-192.png">
+    
+    <!-- Favicon for different platforms -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -297,6 +319,233 @@ body.dark-mode .share-option {
 
 body.dark-mode .share-option:hover {
     background-color: #3d3d3d;
+}
+
+/* PWA Install Button */
+.install-button {
+    background: linear-gradient(135deg, #cba50d 0%, #b8941f 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(203, 165, 13, 0.3);
+    margin-left: 8px;
+}
+
+.install-button:hover {
+    background: linear-gradient(135deg, #b8941f 0%, #a67e1a 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(203, 165, 13, 0.4);
+}
+
+.install-button:active {
+    transform: translateY(0);
+}
+
+.install-button i {
+    margin-right: 4px;
+}
+
+/* Update Notification */
+.update-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.update-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.update-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Dark mode PWA styles */
+body.dark-mode .install-button {
+    background: linear-gradient(135deg, #cba50d 0%, #b8941f 100%);
+    box-shadow: 0 2px 4px rgba(203, 165, 13, 0.4);
+}
+
+body.dark-mode .install-button:hover {
+    background: linear-gradient(135deg, #b8941f 0%, #a67e1a 100%);
+    box-shadow: 0 4px 8px rgba(203, 165, 13, 0.5);
+}
+
+/* Skeleton Loading Styles */
+.skeleton-loader {
+    animation: skeleton-fade-in 0.3s ease-in-out;
+}
+
+.skeleton-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background: rgba(203, 165, 13, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #cba50d;
+}
+
+.skeleton-line {
+    height: 16px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-surah {
+    width: 120px;
+    height: 14px;
+}
+
+.skeleton-badge {
+    width: 60px;
+    height: 24px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 12px;
+}
+
+.skeleton-text {
+    height: 20px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.skeleton-arabic {
+    height: 32px;
+    margin-bottom: 20px;
+}
+
+.skeleton-arabic:first-of-type {
+    width: 90%;
+}
+
+.skeleton-arabic:nth-of-type(2) {
+    width: 75%;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.skeleton-english {
+    height: 18px;
+    margin-bottom: 12px;
+}
+
+.skeleton-english:first-of-type {
+    width: 95%;
+}
+
+.skeleton-english:nth-of-type(2) {
+    width: 85%;
+}
+
+.skeleton-english:nth-of-type(3) {
+    width: 70%;
+}
+
+/* Skeleton Animations */
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes skeleton-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark mode skeleton styles */
+body.dark-mode .skeleton-header {
+    background: rgba(203, 165, 13, 0.2);
+    border-left-color: #cba50d;
+}
+
+body.dark-mode .skeleton-line,
+body.dark-mode .skeleton-badge,
+body.dark-mode .skeleton-text {
+    background: linear-gradient(90deg, #3d3d3d 25%, #4a4a4a 50%, #3d3d3d 75%);
+    background-size: 200% 100%;
+}
+
+/* Mobile skeleton adjustments */
+@media (max-width: 768px) {
+    .skeleton-header {
+        margin-bottom: 15px;
+        padding: 8px 12px;
+    }
+    
+    .skeleton-surah {
+        width: 100px;
+        height: 12px;
+    }
+    
+    .skeleton-badge {
+        width: 50px;
+        height: 20px;
+    }
+    
+    .skeleton-arabic {
+        height: 26px;
+        margin-bottom: 18px;
+    }
+    
+    .skeleton-english {
+        height: 16px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .skeleton-arabic {
+        height: 22px;
+        margin-bottom: 15px;
+    }
+    
+    .skeleton-english {
+        height: 15px;
+        margin-bottom: 8px;
+    }
 }
 
 kbd {
@@ -603,6 +852,19 @@ body.dark-mode kbd {
 <img src="moon.png" class="moon">
 <div id="quranVerse" class="item-a">Loading verse...</div>
 
+<!-- Skeleton Loading State -->
+<div id="skeletonLoader" class="skeleton-loader" style="display: none;">
+    <div class="skeleton-header">
+        <div class="skeleton-line skeleton-surah"></div>
+        <div class="skeleton-badge"></div>
+    </div>
+    <div class="skeleton-text skeleton-arabic"></div>
+    <div class="skeleton-text skeleton-arabic"></div>
+    <div class="skeleton-text skeleton-english"></div>
+    <div class="skeleton-text skeleton-english"></div>
+    <div class="skeleton-text skeleton-english"></div>
+</div>
+
 <div class="verse-actions">
     <button id="refreshButton" class="action-button primary"><i class="fa-solid fa-rotate-right"></i></button>
     <button id="copyButton" class="action-button" title="Copy verse"><i class="fa-solid fa-copy"></i></button>
@@ -648,6 +910,7 @@ body.dark-mode kbd {
 
         // DOM elements
         const verseElement = document.getElementById('quranVerse');
+        const skeletonLoader = document.getElementById('skeletonLoader');
         const refreshButton = document.getElementById('refreshButton');
         const copyButton = document.getElementById('copyButton');
         const favoriteButton = document.getElementById('favoriteButton');
@@ -660,6 +923,10 @@ body.dark-mode kbd {
         
         // Current verse data
         let currentVerseData = null;
+        
+        // PWA variables
+        let deferredPrompt;
+        let isInstalled = false;
         
         // Touch gesture variables
         let touchStartY = 0;
@@ -690,10 +957,8 @@ async function fetchVerse(forceRefresh = false) {
     }
 
     try {
-                // Show loading state with mobile-optimized spinner
-                const isMobile = window.innerWidth <= 768;
-                const loadingText = isMobile ? 'Loading...' : 'Loading verse...';
-                verseElement.innerHTML = `<p><i class="fa-solid fa-spinner fa-spin"></i> ${loadingText}</p>`;
+                // Show skeleton loading state
+                showSkeletonLoader();
                 
         // Fetch a new ayah
                 const response = await fetch(`${API_URL}?nocache=${Math.random()}`);
@@ -731,6 +996,9 @@ async function fetchVerse(forceRefresh = false) {
             // Display the new ayah
                     verseElement.innerHTML = ayahContent;
 
+                    // Hide skeleton loader and show real content
+                    hideSkeletonLoader();
+
                     // Update favorite button state
                     updateFavoriteButton();
 
@@ -741,8 +1009,11 @@ async function fetchVerse(forceRefresh = false) {
         } else {
                     throw new Error('Invalid API response format');
         }
-    } catch (error) {
+            } catch (error) {
                 console.error('Error fetching verse:', error);
+                
+                // Hide skeleton loader
+                hideSkeletonLoader();
                 
                 // Try to show cached verse if available, otherwise show error
                 const storedAyah = localStorage.getItem(STORAGE_KEYS.SAVED_AYAH);
@@ -763,7 +1034,7 @@ async function fetchVerse(forceRefresh = false) {
             if (isDarkMode) {
                 icon.className = 'fa-solid fa-sun';
                 darkModeToggle.title = 'Switch to light mode';
-            } else {
+        } else {
                 icon.className = 'fa-solid fa-moon';
                 darkModeToggle.title = 'Toggle dark mode';
             }
@@ -817,6 +1088,170 @@ async function fetchVerse(forceRefresh = false) {
             }
         }
 
+        // Skeleton loading functions
+        function showSkeletonLoader() {
+            verseElement.style.display = 'none';
+            skeletonLoader.style.display = 'block';
+        }
+
+        function hideSkeletonLoader() {
+            // Add a small delay to let users see the skeleton animation
+            setTimeout(() => {
+                skeletonLoader.style.display = 'none';
+                verseElement.style.display = 'block';
+                // Add a subtle fade-in effect for the real content
+                verseElement.style.opacity = '0';
+                verseElement.style.transform = 'translateY(10px)';
+                verseElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                
+                setTimeout(() => {
+                    verseElement.style.opacity = '1';
+                    verseElement.style.transform = 'translateY(0)';
+                }, 50);
+            }, 800); // Show skeleton for at least 800ms for better UX
+        }
+
+        // PWA Installation Functions
+        function initializePWA() {
+            // Check if app is already installed
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                isInstalled = true;
+                console.log('PWA: App is already installed');
+            }
+
+            // Register service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('PWA: Service Worker registered successfully', registration);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('PWA: Service Worker registration failed', error);
+                    });
+            }
+
+            // Listen for beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (e) => {
+                console.log('PWA: Install prompt available');
+                e.preventDefault();
+                deferredPrompt = e;
+                showInstallButton();
+            });
+
+            // Listen for app installed event
+            window.addEventListener('appinstalled', () => {
+                console.log('PWA: App was installed');
+                isInstalled = true;
+                hideInstallButton();
+                showNotification('App installed successfully! 🎉', 'success');
+            });
+
+            // Handle online/offline status
+            window.addEventListener('online', () => {
+                showNotification('Connection restored! 🌐', 'success');
+            });
+
+            window.addEventListener('offline', () => {
+                showNotification('You are offline. Cached content available. 📱', 'info');
+            });
+        }
+
+        function showInstallButton() {
+            if (isInstalled || !deferredPrompt) return;
+
+            // Create install button
+            const installButton = document.createElement('button');
+            installButton.id = 'installButton';
+            installButton.className = 'install-button';
+            installButton.innerHTML = '<i class="fa-solid fa-download"></i> Install App';
+            installButton.title = 'Install Quran Verse Widget';
+            
+            // Add to header controls
+            const headerControls = document.querySelector('.header-controls');
+            headerControls.appendChild(installButton);
+
+            // Add click handler
+            installButton.addEventListener('click', installPWA);
+        }
+
+        function hideInstallButton() {
+            const installButton = document.getElementById('installButton');
+            if (installButton) {
+                installButton.remove();
+            }
+        }
+
+        async function installPWA() {
+            if (!deferredPrompt) return;
+
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('PWA: User accepted the install prompt');
+            } else {
+                console.log('PWA: User dismissed the install prompt');
+            }
+            
+            // Clear the deferredPrompt
+            deferredPrompt = null;
+            hideInstallButton();
+        }
+
+        function showUpdateNotification() {
+            const updateNotification = document.createElement('div');
+            updateNotification.className = 'update-notification';
+            updateNotification.innerHTML = `
+                <div class="update-content">
+                    <i class="fa-solid fa-sync-alt"></i>
+                    <span>New version available!</span>
+                    <button onclick="updateApp()" class="update-button">Update</button>
+                </div>
+            `;
+            updateNotification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #cba50d;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-family: 'Lexend Deca', sans-serif;
+                font-size: 14px;
+                z-index: 10000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                animation: slideDown 0.3s ease;
+            `;
+            
+            document.body.appendChild(updateNotification);
+        }
+
+        function updateApp() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistration().then(registration => {
+                    if (registration && registration.waiting) {
+                        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+
         // Extract verse data from cached content for sharing
         function extractVerseDataFromCachedContent() {
             try {
@@ -844,8 +1279,8 @@ async function fetchVerse(forceRefresh = false) {
                             updateFavoriteButton();
                         }
                     }
-                }
-            } catch (error) {
+        }
+    } catch (error) {
                 console.error('Error extracting verse data from cached content:', error);
             }
         }
@@ -1176,10 +1611,11 @@ async function fetchVerse(forceRefresh = false) {
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd, { passive: false });
 
-        // Initialize dark mode, icon, and fetch verse on page load
+        // Initialize dark mode, icon, PWA, and fetch verse on page load
         initializeDarkMode();
         initializeIcon();
-fetchVerse();
+        initializePWA();
+        fetchVerse();
 
 
     </script>
