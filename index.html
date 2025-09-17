@@ -6,27 +6,7 @@
     <title>Daily Quran Verse Widget</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
-    <!-- PWA Meta Tags -->
     <meta name="description" content="Beautiful daily Quran verses with Arabic text and English translations. Features dark mode, mobile gestures, and social sharing.">
-    <meta name="theme-color" content="#cba50d">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="QuranVerse">
-    <meta name="msapplication-TileColor" content="#cba50d">
-    <meta name="msapplication-tap-highlight" content="no">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="icon-192.png">
-    
-    <!-- Favicon for different platforms -->
-    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -321,79 +301,6 @@ body.dark-mode .share-option:hover {
     background-color: #3d3d3d;
 }
 
-/* PWA Install Button */
-.install-button {
-    background: linear-gradient(135deg, #cba50d 0%, #b8941f 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 12px;
-    font-family: 'Lexend Deca', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(203, 165, 13, 0.3);
-    margin-left: 8px;
-}
-
-.install-button:hover {
-    background: linear-gradient(135deg, #b8941f 0%, #a67e1a 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(203, 165, 13, 0.4);
-}
-
-.install-button:active {
-    transform: translateY(0);
-}
-
-.install-button i {
-    margin-right: 4px;
-}
-
-/* Update Notification */
-.update-content {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.update-button {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.update-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-@keyframes slideDown {
-    0% {
-        transform: translateX(-50%) translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Dark mode PWA styles */
-body.dark-mode .install-button {
-    background: linear-gradient(135deg, #cba50d 0%, #b8941f 100%);
-    box-shadow: 0 2px 4px rgba(203, 165, 13, 0.4);
-}
-
-body.dark-mode .install-button:hover {
-    background: linear-gradient(135deg, #b8941f 0%, #a67e1a 100%);
-    box-shadow: 0 4px 8px rgba(203, 165, 13, 0.5);
-}
 
 /* Skeleton Loading Styles */
 .skeleton-loader {
@@ -924,9 +831,6 @@ body.dark-mode kbd {
         // Current verse data
         let currentVerseData = null;
         
-        // PWA variables
-        let deferredPrompt;
-        let isInstalled = false;
         
         // Touch gesture variables
         let touchStartY = 0;
@@ -1111,146 +1015,6 @@ async function fetchVerse(forceRefresh = false) {
             }, 800); // Show skeleton for at least 800ms for better UX
         }
 
-        // PWA Installation Functions
-        function initializePWA() {
-            // Check if app is already installed
-            if (window.matchMedia('(display-mode: standalone)').matches || 
-                window.navigator.standalone === true) {
-                isInstalled = true;
-                console.log('PWA: App is already installed');
-            }
-
-            // Register service worker
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('PWA: Service Worker registered successfully', registration);
-                        
-                        // Check for updates
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    showUpdateNotification();
-                                }
-                            });
-                        });
-                    })
-                    .catch(error => {
-                        console.log('PWA: Service Worker registration failed', error);
-                    });
-            }
-
-            // Listen for beforeinstallprompt event
-            window.addEventListener('beforeinstallprompt', (e) => {
-                console.log('PWA: Install prompt available');
-                e.preventDefault();
-                deferredPrompt = e;
-                showInstallButton();
-            });
-
-            // Listen for app installed event
-            window.addEventListener('appinstalled', () => {
-                console.log('PWA: App was installed');
-                isInstalled = true;
-                hideInstallButton();
-                showNotification('App installed successfully! 🎉', 'success');
-            });
-
-            // Handle online/offline status
-            window.addEventListener('online', () => {
-                showNotification('Connection restored! 🌐', 'success');
-            });
-
-            window.addEventListener('offline', () => {
-                showNotification('You are offline. Cached content available. 📱', 'info');
-            });
-        }
-
-        function showInstallButton() {
-            if (isInstalled || !deferredPrompt) return;
-
-            // Create install button
-            const installButton = document.createElement('button');
-            installButton.id = 'installButton';
-            installButton.className = 'install-button';
-            installButton.innerHTML = '<i class="fa-solid fa-download"></i> Install App';
-            installButton.title = 'Install Quran Verse Widget';
-            
-            // Add to header controls
-            const headerControls = document.querySelector('.header-controls');
-            headerControls.appendChild(installButton);
-
-            // Add click handler
-            installButton.addEventListener('click', installPWA);
-        }
-
-        function hideInstallButton() {
-            const installButton = document.getElementById('installButton');
-            if (installButton) {
-                installButton.remove();
-            }
-        }
-
-        async function installPWA() {
-            if (!deferredPrompt) return;
-
-            // Show the install prompt
-            deferredPrompt.prompt();
-            
-            // Wait for the user to respond to the prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                console.log('PWA: User accepted the install prompt');
-            } else {
-                console.log('PWA: User dismissed the install prompt');
-            }
-            
-            // Clear the deferredPrompt
-            deferredPrompt = null;
-            hideInstallButton();
-        }
-
-        function showUpdateNotification() {
-            const updateNotification = document.createElement('div');
-            updateNotification.className = 'update-notification';
-            updateNotification.innerHTML = `
-                <div class="update-content">
-                    <i class="fa-solid fa-sync-alt"></i>
-                    <span>New version available!</span>
-                    <button onclick="updateApp()" class="update-button">Update</button>
-                </div>
-            `;
-            updateNotification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #cba50d;
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                font-family: 'Lexend Deca', sans-serif;
-                font-size: 14px;
-                z-index: 10000;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-                animation: slideDown 0.3s ease;
-            `;
-            
-            document.body.appendChild(updateNotification);
-        }
-
-        function updateApp() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistration().then(registration => {
-                    if (registration && registration.waiting) {
-                        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-                        window.location.reload();
-                    }
-                });
-            }
-        }
 
         // Extract verse data from cached content for sharing
         function extractVerseDataFromCachedContent() {
@@ -1611,10 +1375,9 @@ async function fetchVerse(forceRefresh = false) {
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd, { passive: false });
 
-        // Initialize dark mode, icon, PWA, and fetch verse on page load
+        // Initialize dark mode, icon, and fetch verse on page load
         initializeDarkMode();
         initializeIcon();
-        initializePWA();
         fetchVerse();
 
 
