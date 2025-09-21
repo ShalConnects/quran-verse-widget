@@ -176,26 +176,26 @@
 }
 
 /* Dark mode styles for verse elements */
-body.dark-mode .verse-header {
+.grid_container.dark-mode .verse-header {
     background: rgba(203, 165, 13, 0.2);
     border-left-color: #cba50d;
 }
 
-body.dark-mode .surah-info {
+.grid_container.dark-mode .surah-info {
     color: #cba50d;
 }
 
-body.dark-mode .ayah-number {
+.grid_container.dark-mode .ayah-number {
     color: #ecf0f1;
     background: rgba(236, 240, 241, 0.1);
 }
 
-body.dark-mode .arabic-text {
+.grid_container.dark-mode .arabic-text {
     color: #ecf0f1;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-body.dark-mode .english-text {
+.grid_container.dark-mode .english-text {
     color: #bdc3c7;
 }
 
@@ -288,16 +288,16 @@ body.dark-mode .english-text {
 }
 
 /* Dark mode styles for new elements */
-body.dark-mode .share-menu {
+.grid_container.dark-mode .share-menu {
     background: #2d2d2d;
     border-color: #444;
 }
 
-body.dark-mode .share-option {
+.grid_container.dark-mode .share-option {
     color: #e0e0e0;
 }
 
-body.dark-mode .share-option:hover {
+.grid_container.dark-mode .share-option:hover {
     background-color: #3d3d3d;
 }
 
@@ -403,14 +403,14 @@ body.dark-mode .share-option:hover {
 }
 
 /* Dark mode skeleton styles */
-body.dark-mode .skeleton-header {
+.grid_container.dark-mode .skeleton-header {
     background: rgba(203, 165, 13, 0.2);
     border-left-color: #cba50d;
 }
 
-body.dark-mode .skeleton-line,
-body.dark-mode .skeleton-badge,
-body.dark-mode .skeleton-text {
+.grid_container.dark-mode .skeleton-line,
+.grid_container.dark-mode .skeleton-badge,
+.grid_container.dark-mode .skeleton-text {
     background: linear-gradient(90deg, #3d3d3d 25%, #4a4a4a 50%, #3d3d3d 75%);
     background-size: 200% 100%;
 }
@@ -496,69 +496,63 @@ kbd {
     transform: scale(1.1);
 }
 
-/* Dark mode styles */
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-}
+/* Dark mode styles - only for widget container */
 
-body.dark-mode .grid_container {
+.grid_container.dark-mode {
     background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
     border-color: #444;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-body.dark-mode .grid_container::before {
+.grid_container.dark-mode::before {
     background: radial-gradient(circle at 20% 80%, rgba(203, 165, 13, 0.2) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(203, 165, 13, 0.2) 0%, transparent 50%);
 }
 
-body.dark-mode #quranVerse p:nth-child(1) {
+.grid_container.dark-mode #quranVerse p:nth-child(1) {
     color: #ecf0f1;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-body.dark-mode #quranVerse p:nth-child(2) {
+.grid_container.dark-mode #quranVerse p:nth-child(2) {
     color: #bdc3c7;
 }
 
-body.dark-mode #quranVerse p:nth-child(3) {
+.grid_container.dark-mode #quranVerse p:nth-child(3) {
     color: #95a5a6;
 }
 
-body.dark-mode .action-button {
+.grid_container.dark-mode .action-button {
     background-color: #4a4a4a;
     color: #e0e0e0;
 }
 
-body.dark-mode .action-button:hover {
+.grid_container.dark-mode .action-button:hover {
     background-color: #cba50d;
     color: #000;
 }
 
-body.dark-mode .action-button.primary {
+.grid_container.dark-mode .action-button.primary {
     background-color: #0056b3;
 }
 
-body.dark-mode .action-button.primary:hover {
+.grid_container.dark-mode .action-button.primary:hover {
     background-color: #003d82;
 }
 
-body.dark-mode .dark-mode-toggle {
+.grid_container.dark-mode .dark-mode-toggle {
     border-color: #666;
     color: #e0e0e0;
 }
 
-body.dark-mode .dark-mode-toggle:hover {
+.grid_container.dark-mode .dark-mode-toggle:hover {
     border-color: #cba50d;
     color: #cba50d;
 }
 
-body.dark-mode p {
-    color: #999 !important;
-}
+/* Removed global p styling - only widget content should be affected */
 
-body.dark-mode kbd {
+.grid_container.dark-mode kbd {
     background-color: #444;
     border-color: #666;
     color: #e0e0e0;
@@ -929,9 +923,9 @@ async function fetchVerse(forceRefresh = false) {
             }
 }
 
-        // Dark mode functionality
+        // Dark mode functionality - only affects widget container
         function toggleDarkMode() {
-            const isDarkMode = body.classList.toggle('dark-mode');
+            const isDarkMode = gridContainer.classList.toggle('dark-mode');
             const icon = darkModeToggle.querySelector('i');
             
             // Update icon based on current mode
@@ -956,7 +950,7 @@ async function fetchVerse(forceRefresh = false) {
                 savedDarkMode === 'true' : prefersDark;
             
             if (shouldUseDarkMode) {
-                body.classList.add('dark-mode');
+                gridContainer.classList.add('dark-mode');
                 const icon = darkModeToggle.querySelector('i');
                 icon.className = 'fa-solid fa-sun';
                 darkModeToggle.title = 'Switch to light mode';
@@ -1378,7 +1372,7 @@ async function fetchVerse(forceRefresh = false) {
         // Initialize dark mode, icon, and fetch verse on page load
         initializeDarkMode();
         initializeIcon();
-        fetchVerse();
+fetchVerse();
 
 
     </script>
